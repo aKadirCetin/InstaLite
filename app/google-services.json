@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "138690186657",
+    "project_id": "javainstaclone-c8cb7",
+    "storage_bucket": "javainstaclone-c8cb7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:138690186657:android:bf85944e5b405f9b478fe0",
+        "android_client_info": {
+          "package_name": "com.example.javainstagramclone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwZ_hnoj_EG0XGYrWPX8T44YBrAgVUIig"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:138690186657:android:c3ace156f9f7572c478fe0",
+        "android_client_info": {
+          "package_name": "com.kadircetin.instalite"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwZ_hnoj_EG0XGYrWPX8T44YBrAgVUIig"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
