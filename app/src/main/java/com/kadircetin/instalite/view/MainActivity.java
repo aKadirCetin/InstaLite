@@ -1,6 +1,7 @@
 package com.kadircetin.instalite.view;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +20,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         settings();
     }
+    public void signInClicked(View view){
 
+    }
+    public void signUpClicked(View view) {
+
+    }
     public void settings(){
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
