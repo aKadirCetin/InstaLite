@@ -3,6 +3,7 @@ package com.kadircetin.instalite.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -28,55 +29,58 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
-        setContentView(view);
+        setContentView(binding.getRoot());
+        settings();
 
-        auth=FirebaseAuth.getInstance();
-        FirebaseUser user =auth.getCurrentUser();
-        if(user != null){
-            startActivity(new Intent(MainActivity.this,FeedActivity.class));
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        if (user != null) {
+            startActivity(new Intent(MainActivity.this, FeedActivity.class));
             finish();
         }
-
         FirebaseAppCheck firebaseAppCheck = FirebaseAppCheck.getInstance();
         firebaseAppCheck.installAppCheckProviderFactory(DebugAppCheckProviderFactory.getInstance());
 
-        settings();
     }
-    public void signInClicked(View view){
-        String email = binding.emailText.getText().toString();
-        String password= binding.passwordText.getText().toString();
 
-        if(email.isEmpty() ||password.isEmpty()){
-            Toast.makeText(this,"Enter email and password",Toast.LENGTH_LONG).show();
-        }else{
-            auth.signInWithEmailAndPassword(email,password).addOnSuccessListener(authResult -> {
-                Intent intent=new Intent(MainActivity.this,FeedActivity.class);
-                startActivity(intent);
-                finish();
-            }).addOnFailureListener(e->{
-                Toast.makeText(MainActivity.this,e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
-            });
-        }
+    public void signInClicked(View view) {
+        handleAuth(false);
     }
+
     public void signUpClicked(View view) {
-        String email = binding.emailText.getText().toString();
-        String password= binding.passwordText.getText().toString();
+        handleAuth(true);
+    }
 
-        if(email.isEmpty() ||password.isEmpty()){
-            Toast.makeText(this,"Enter email and password",Toast.LENGTH_LONG).show();
-        }else{
-            auth.createUserWithEmailAndPassword(email,password).addOnSuccessListener(authResult -> {
-                Intent intent=new Intent(MainActivity.this,FeedActivity.class);
-                startActivity(intent);
-                finish();
-            }).addOnFailureListener(e->{
-                Toast.makeText(MainActivity.this,e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
-            });
+    public void handleAuth(boolean isSignUp) {
+        String email = binding.emailText.getText().toString().trim();
+        String password = binding.passwordText.getText().toString().trim();
+
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Enter email and password", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (isSignUp) {
+            auth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
+                goToFeed();
+            }).addOnFailureListener(e -> {showError(e);});
+        } else {
+            auth.signInWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
+                goToFeed();
+            }).addOnFailureListener(e -> { showError(e); });
         }
     }
-    public void settings(){
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+
+    private void goToFeed() {
+        startActivity(new Intent(MainActivity.this, FeedActivity.class));
+        finish();
+    }
+
+    private void showError(Exception e) {
+        Toast.makeText(MainActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+    }
+
+    public void settings() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
