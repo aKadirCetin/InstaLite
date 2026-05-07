@@ -14,8 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.InstaLite">
-
-
+        <activity
+            android:name=".view.UploadActivity"
+            android:exported="false" />
         <activity
             android:name=".view.FeedActivity"
             android:exported="false" />

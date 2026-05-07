@@ -90,16 +90,18 @@ public class FeedActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.option_menu,menu);
+        menuInflater.inflate(R.menu.option_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.add_post){
-            
+        if (item.getItemId() == R.id.add_post) {
+            startActivity(new Intent(FeedActivity.this, UploadActivity.class));
         } else if (item.getItemId() == R.id.signout) {
-
+            auth.signOut();
+            startActivity(new Intent(FeedActivity.this, MainActivity.class));
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
